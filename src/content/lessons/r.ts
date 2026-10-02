@@ -1,0 +1,91 @@
+import type { Lesson } from "./types";
+
+export const r: Lesson[] = [
+  { slug: "r-as-a-calculator", title: "R as a calculator", summary: "Type some math, get an answer, give it a name.",
+    steps: [
+      { kind: "read", title: "A language built for data", body: [
+        "**R** was made by statisticians for working with data. Quant researchers use it to explore numbers and test ideas quickly.",
+        "The simplest thing R does is calculate. Write an expression on its own line and R prints the answer.",
+        "The `[1]` in front of the answer is a position marker. It says the line starts at the first value. You will see why once you have many values." ],
+        example: "2 + 3\n# [1] 5" },
+      { kind: "code", lang: "r", title: "Calculate an expected value", body: ["The coin bet again: heads wins 12, tails loses 4."],
+        task: ["Write one line that works out half of 12 plus half of -4."],
+        starter: "# Write your calculation below\n", solution: "0.5 * 12 + 0.5 * -4\n",
+        checks: [{ code: "\\*", msg: "Use * to multiply." }, { out: "\\[1\\] 4\\s*$", msg: "The answer should print as: [1] 4" }],
+        hint: "0.5 * 12 + 0.5 * -4" },
+      { kind: "code", lang: "r", title: "Give it a name", body: [
+        "R stores a value in a variable with the arrow `<-`. Read `ev <- 4` as: ev gets 4.",
+        "Storing a value prints nothing. To see it, write the variable's name on its own line." ],
+        task: ["Store the expected value of the coin bet in `ev`.", "Print `ev` on the next line."],
+        starter: "# Store the result in ev, then print ev\n", solution: "ev <- 0.5 * 12 + 0.5 * -4\nev\n",
+        checks: [{ code: "ev\\s*(<-|=)", msg: "Store the value with: ev <- ..." }, { out: "\\[1\\] 4\\s*$", msg: "After storing it, put ev on its own line so it prints [1] 4." }],
+        hint: "ev <- 0.5 * 12 + 0.5 * -4\nev" },
+      { kind: "mc", q: "R prints `[1] 3.5`. What does the `[1]` mean?", options: ["The answer is 1", "This line starts at the first value", "There was one error", "R ran one line of code"], answer: 1,
+        explain: "It is a position marker, useful when a result has many values that wrap onto several lines." },
+    ] },
+  { slug: "vectors", title: "Vectors", summary: "Work on a whole column of numbers at once.",
+    steps: [
+      { kind: "read", title: "Many values, one name", body: [
+        "A **vector** is a row of values. You build one with `c( )`, short for combine.",
+        "The big idea in R: math on a vector happens to every value at once. No loop needed.",
+        "Functions like `mean( )` and `sum( )` take a whole vector and give back one number." ],
+        example: "x <- c(1, 2, 3)\nx * 2\n# [1] 2 4 6\nsum(x)\n# [1] 6" },
+      { kind: "code", lang: "r", title: "The average payoff", body: ["Put the two outcomes of the coin bet in a vector."],
+        task: ["Make a vector `payoffs` holding 12 and -4.", "Print its mean."],
+        starter: "# Make payoffs, then take its mean\n", solution: "payoffs <- c(12, -4)\nmean(payoffs)\n",
+        checks: [{ code: "payoffs\\s*(<-|=)\\s*c\\(", msg: "Build the vector with: payoffs <- c(12, -4)" }, { code: "mean\\(", msg: "Use mean( ) on the vector." }, { out: "\\[1\\] 4\\s*$", msg: "The mean of 12 and -4 should print as [1] 4." }],
+        hint: "payoffs <- c(12, -4)\nmean(payoffs)" },
+      { kind: "code", lang: "r", title: "Unequal chances", body: [
+        "The mean works for a fair coin because both outcomes are equally likely. For a die bet they are not: a six wins 6 with probability 1/6, and anything else loses 1 with probability 5/6.",
+        "Multiply each payoff by its probability and add them up. In R that is one line." ],
+        task: ["Multiply `payoffs` by `probs` and add up the result with `sum( )`."],
+        starter: "payoffs <- c(6, -1)\nprobs <- c(1/6, 5/6)\n\n", solution: "payoffs <- c(6, -1)\nprobs <- c(1/6, 5/6)\n\nsum(payoffs * probs)\n",
+        checks: [{ code: "sum\\(", msg: "Wrap the multiplication in sum( )." }, { out: "0\\.1666", msg: "The expected value should be about 0.1667." }],
+        hint: "sum(payoffs * probs)" },
+      { kind: "code", lang: "r", title: "Pick out values", body: [
+        "`1:6` is a shortcut for the vector 1, 2, 3, 4, 5, 6. Square brackets pick out the values that pass a test: `rolls[rolls > 2]`.",
+        "A test like `rolls > 4` gives TRUE or FALSE for each value. R counts TRUE as 1, so the `mean` of a test is the share that passed. That share is a probability." ],
+        task: ["Print the rolls that are greater than 4.", "On the next line, print the share of rolls greater than 4 using `mean( )`."],
+        starter: "rolls <- 1:6\n\n", solution: "rolls <- 1:6\n\nrolls[rolls > 4]\nmean(rolls > 4)\n",
+        checks: [{ out: "\\[1\\] 5 6\\s*$", msg: "First print the rolls above 4 with rolls[rolls > 4]. It should show [1] 5 6." }, { out: "0\\.3333", msg: "Then print mean(rolls > 4). It should be about 0.3333." }],
+        hint: "rolls[rolls > 4]\nmean(rolls > 4)" },
+      { kind: "mc", q: "What does `c(1, 2, 3) * 2` give?", options: ["[1] 12", "[1] 2 4 6", "[1] 1 2 3 1 2 3", "An error"], answer: 1,
+        explain: "Math on a vector applies to every value." },
+    ] },
+  { slug: "data-and-simulation", title: "Data and simulation", summary: "Summarize real numbers, run an experiment, and draw it.",
+    steps: [
+      { kind: "code", lang: "r", title: "Average and spread", body: [
+        "These are a stock's daily returns for a week: 0.02 means it went up 2%. Two numbers summarize them.",
+        "`mean( )` is the typical day. `sd( )`, the **standard deviation**, is how far a day usually lands from that average. Quants treat it as a measure of risk." ],
+        task: ["Print the mean of `returns`.", "Print the standard deviation of `returns`."],
+        starter: "returns <- c(0.02, -0.01, 0.03, -0.02, 0.01)\n\n", solution: "returns <- c(0.02, -0.01, 0.03, -0.02, 0.01)\n\nmean(returns)\nsd(returns)\n",
+        checks: [{ out: "\\[1\\] 0\\.006\\s*$", msg: "Print mean(returns). It should be 0.006." }, { out: "0\\.0207", msg: "Print sd(returns). It should be about 0.0207." }],
+        hint: "mean(returns)\nsd(returns)" },
+      { kind: "code", lang: "r", title: "Ten thousand flips in one line", body: [
+        "`sample( )` draws values at random from a vector. With `replace = TRUE` it can draw the same value again, like flipping a coin over and over.",
+        "`set.seed(1)` makes the random draws the same each run, so results can be checked." ],
+        task: ["Use `sample( )` to draw 10000 values from `c(12, -4)` with `replace = TRUE`. Store them in `flips`."],
+        starter: "set.seed(1)\n\n# Create flips here\n\nmean(flips)\n", solution: "set.seed(1)\n\nflips <- sample(c(12, -4), 10000, replace = TRUE)\n\nmean(flips)\n",
+        checks: [{ code: "sample\\(", msg: "Use sample( ) to draw the flips." }, { code: "replace\\s*=\\s*T", msg: "Add replace = TRUE so values can be drawn again." }, { num: [3.5, 4.5], msg: "The mean of the flips should be close to 4." }],
+        hint: "flips <- sample(c(12, -4), 10000, replace = TRUE)" },
+      { kind: "code", lang: "r", title: "Draw it", body: [
+        "A picture shows what a number cannot. `running` holds the average after each flip: `cumsum` is the running total, divided by how many flips there have been so far.",
+        "`plot(x, type = \"l\")` draws a line chart." ],
+        task: ["Plot `running` as a line."],
+        starter: "set.seed(1)\nflips <- sample(c(12, -4), 10000, replace = TRUE)\nrunning <- cumsum(flips) / seq_along(flips)\n\n", solution: "set.seed(1)\nflips <- sample(c(12, -4), 10000, replace = TRUE)\nrunning <- cumsum(flips) / seq_along(flips)\n\nplot(running, type = \"l\")\n",
+        checks: [{ code: "plot\\(\\s*running", msg: "Call plot( ) with running as the first thing inside." }, { plot: true, msg: "No chart appeared. Check your plot( ) line." }],
+        hint: 'plot(running, type = "l")' },
+      { kind: "mc", q: "In the chart, the line jumps around on the left and flattens out near 4 on the right. Why?", options: [
+        "The coin gets fairer over time", "With more flips, the average gets closer to the expected value", "R smooths the line automatically" ], answer: 1,
+        explain: "Early on, a few lucky or unlucky flips move the average a lot. After thousands, each flip barely moves it. That is the law of large numbers." },
+    ] },
+  { slug: "quiz", title: "Track quiz", summary: "Five questions. Get four right to finish the track.", quiz: true,
+    steps: [
+      { kind: "mc", q: "Which line stores the value 10 in a variable called `x`?", options: ["x <- 10", "10 -> store(x)", "x == 10", "var x: 10"], answer: 0, explain: "The arrow <- assigns a value to a name." },
+      { kind: "mc", q: "What does `mean(c(2, 4, 9))` give?", options: ["[1] 15", "[1] 5", "[1] 4", "[1] 3"], answer: 1, explain: "(2 + 4 + 9) ÷ 3 = 5." },
+      { kind: "mc", q: "What does `c(10, 20, 30) / 10` give?", options: ["[1] 6", "[1] 1 2 3", "[1] 10 20 3", "An error"], answer: 1, explain: "The division is applied to every value in the vector." },
+      { kind: "mc", q: "`x <- 1:10`. What does `x[x > 7]` give?", options: ["[1] 8 9 10", "[1] 7 8 9 10", "[1] TRUE", "[1] 3"], answer: 0, explain: "The brackets keep only the values that pass the test." },
+      { kind: "mc", q: "What does `sd( )` measure?", options: ["The largest value", "How spread out the values are around their average", "How many values there are", "The total of the values"], answer: 1,
+        explain: "Standard deviation is the typical distance from the mean, and a common measure of risk." },
+    ] },
+];

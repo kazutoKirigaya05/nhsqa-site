@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { PipelineMap } from "@/components/PipelineMap";
+import { LivePipelineMap } from "@/components/learn/TrackViews";
 import { TRACKS } from "@/content/site";
 
 export const metadata = { title: "The Quant Pipeline" };
@@ -13,10 +13,10 @@ export default function Page() {
             <h1 className="long">The Quant Pipeline</h1>
             <p className="lede">Everything you need to go from never having heard of a quant to working with a mentor. Follow the curve from left to right.</p>
           </div>
-          <PipelineMap />
+          <LivePipelineMap />
           <div className="btns">
-            <Link href="/join" className="btn">Join free to start</Link>
-            <span className="muted">Members see their own progress on this map.</span>
+            <Link href="/learn" className="btn">Start learning</Link>
+            <span className="muted">Click any stop to open it. The map fills in as you finish tracks.</span>
           </div>
         </div>
       </section>
@@ -34,6 +34,7 @@ export default function Page() {
                 <div>
                   <p>{t.blurb}</p>
                   <ul className="topics">{t.topics.map((x) => <li key={x}>{x}</li>)}</ul>
+                  <p style={{ marginTop: 12 }}><Link href={`/learn/${t.slug}`}>Open {t.title}</Link></p>
                 </div>
               </div>
             ))}

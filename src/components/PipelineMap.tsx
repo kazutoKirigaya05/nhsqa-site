@@ -17,8 +17,14 @@ function smooth(p: readonly (readonly [number, number])[]) {
 
 const GROUPS: [string, number, number][] = [["Skills", 0, 5], ["Seminars", 6, 6], ["Mentorship", 7, 7]];
 
-/** The pipeline plotted as a curve. `base` is the page the stops link to ("" for same-page anchors). */
-export function PipelineMap({ base = "" }: { base?: string }) {
+type State = "new" | "now" | "done";
+
+/**
+ * The pipeline plotted as a curve. `base` is the page the stops link to ("" for same-page anchors).
+ * With `learn`, skill stops open their lessons and `status` colors each stop by progress.
+ */
+export function PipelineMap({ base = "", learn = false, status = {} }: { base?: string; learn?: boolean; status?: Record<string, State> }) {
+  const isTrack = (slug: string) => TRACKS.some((t) => t.slug === slug);
   return (
     <div className="plot">
       <div className="plot-scroll">
@@ -35,15 +41,26 @@ export function PipelineMap({ base = "" }: { base?: string }) {
             );
           })}
           <path className="curve" d={smooth(PTS)} pathLength={1} fill="none" stroke="var(--ink)" strokeWidth={3.5} strokeLinecap="round" />
-          {STOPS.map((s, i) => (
-            <Link key={s.slug} href={`${base}#${s.slug}`} className="stop" style={{ "--i": i } as React.CSSProperties} aria-label={s.label.join(" ")}>
-              <circle cx={XS[i]} cy={YS[i]} r={13} fill="var(--paper)" stroke="var(--pencil)" strokeWidth={2.5} />
-              <text x={XS[i]} y={YS[i] + 4.5} textAnchor="middle" fontSize={12} fontWeight={700} fill="var(--pencil)" style={{ fontFamily: "var(--mono)" }}>{i + 1}</text>
-              <text x={XS[i]} y={YS[i] + 33} textAnchor="middle" fontSize={13.5} fontWeight={600} fill="var(--pencil)">
-                {s.label.map((t, k) => <tspan key={k} x={XS[i]} dy={k ? 16 : 0}>{t}</tspan>)}
-              </text>
-            </Link>
-          ))}
+          {STOPS.map((s, i) => {
+            const st = status[s.slug] ?? "new";
+            const href = learn && isTrack(s.slug) ? `/learn/${s.slug}` : `${base}#${s.slug}`;
+            const word = st === "done" ? ", finished" : st === "now" ? ", in progress" : "";
+            return (
+              <Link key={s.slug} href={href} className="stop" style={{ "--i": i } as React.CSSProperties} aria-label={s.label.join(" ") + word}>
+                <circle cx={XS[i]} cy={YS[i]} r={13} fill={st === "done" ? "var(--hi)" : "var(--paper)"} stroke="var(--pencil)" strokeWidth={st === "now" ? 4 : 2.5} />
+                {st === "done" ? (
+                  <path d={`M${XS[i] - 5.5},${YS[i]} l4,4 l7,-8`} fill="none" stroke="var(--pencil)" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round" />
+                ) : st === "now" ? (
+                  <circle cx={XS[i]} cy={YS[i]} r={5} fill="var(--hi)" stroke="var(--pencil)" strokeWidth={1.5} />
+                ) : (
+                  <text x={XS[i]} y={YS[i] + 4.5} textAnchor="middle" fontSize={12} fontWeight={700} fill="var(--pencil)" style={{ fontFamily: "var(--mono)" }}>{i + 1}</text>
+                )}
+                <text x={XS[i]} y={YS[i] + 33} textAnchor="middle" fontSize={13.5} fontWeight={600} fill="var(--pencil)">
+                  {s.label.map((t, k) => <tspan key={k} x={XS[i]} dy={k ? 16 : 0}>{t}</tspan>)}
+                </text>
+              </Link>
+            );
+          })}
         </svg>
       </div>
       <p className="plot-hint">Swipe sideways to follow the whole path.</p>

@@ -7,6 +7,7 @@ import { Logo } from "./Logo";
 const LINKS = [
   ["/what-is-a-quant", "What is a quant?"],
   ["/pipeline", "Pipeline"],
+  ["/learn", "Lessons"],
   ["/kits", "Quant kits"],
   ["/events", "Events"],
   ["/sponsors", "Sponsors"],
@@ -27,7 +28,7 @@ export function SiteHeader() {
         <nav id="site-nav" className={open ? "nav open" : "nav"} aria-label="Main">
           <div className="nav-main">
             {LINKS.map(([href, label]) => (
-              <Link key={href} href={href} aria-current={path === href ? "page" : undefined} onClick={close}>{label}</Link>
+              <Link key={href} href={href} aria-current={path === href || path.startsWith(href + "/") ? "page" : undefined} onClick={close}>{label}</Link>
             ))}
             <Link href="/login" aria-current={path === "/login" ? "page" : undefined} onClick={close}>Log in</Link>
           </div>

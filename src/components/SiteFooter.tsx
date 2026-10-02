@@ -16,6 +16,7 @@ export function SiteFooter() {
             <ul>
               <li><Link href="/what-is-a-quant">What is a quant?</Link></li>
               <li><Link href="/pipeline">The Quant Pipeline</Link></li>
+              <li><Link href="/learn">Lessons</Link></li>
               <li><Link href="/events">Events and news</Link></li>
               <li><Link href="/join">Join free</Link></li>
             </ul>
