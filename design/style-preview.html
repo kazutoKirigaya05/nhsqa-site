@@ -1,0 +1,178 @@
+<title>NHSQA Brand Directions</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Red+Hat+Display:wght@600;800;900&family=Red+Hat+Mono:wght@400;500&family=Red+Hat+Text:wght@400;500;600&family=Work+Sans:wght@400;500;600&family=Zilla+Slab:wght@500;600;700&display=swap">
+<style>
+/* Layout: three full sample frames stacked for side-by-side judgement; page chrome stays quiet so only the samples carry colour. */
+:root{
+  --bg:#f3f4f6; --fg:#1a1f2b; --muted:#5b6474; --line:#d5d9e0; --chip:#ffffff;
+  --ui:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#12151b;--fg:#e9ecf1;--muted:#9aa3b2;--line:#2c323d;--chip:#1b2029;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#12151b;--fg:#e9ecf1;--muted:#9aa3b2;--line:#2c323d;--chip:#1b2029;color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--ui);font-size:16px;line-height:1.55;padding-inline:16px;padding-block:32px 64px}
+.page{max-width:1080px;margin-inline:auto;display:flex;flex-direction:column;gap:40px}
+.intro h1{font-size:1.75rem;line-height:1.2;margin:0 0 8px;font-weight:600;text-wrap:balance}
+.intro p{margin:0;color:var(--muted);max-width:62ch}
+.jump{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.jump a{color:var(--fg);background:var(--chip);border:1px solid var(--line);padding:6px 12px;border-radius:999px;text-decoration:none;font-size:.9rem}
+.jump a:focus-visible,.d a:focus-visible,.d button:focus-visible{outline:3px solid #2f6fed;outline-offset:2px}
+.dir-head{display:flex;flex-direction:column;gap:2px;margin-bottom:12px}
+.dir-head h2{margin:0;font-size:1.25rem;font-weight:600}
+.dir-head p{margin:0;color:var(--muted);max-width:68ch}
+
+/* ---------- direction tokens (each sample commits to its own look) ---------- */
+.d{background:var(--d-bg);color:var(--d-fg);font-family:var(--d-body);border-radius:10px;overflow:hidden;border:1px solid var(--line)}
+.d-a{--d-bg:#0f1b2d;--d-surface:#172840;--d-fg:#eef2f7;--d-muted:#9dacbf;--d-line:#2b3f5c;--d-accent:#f4b92e;--d-bar:#8a97a9;
+  --d-btn-bg:#f4b92e;--d-btn-fg:#0f1b2d;--d-btn-shadow:none;--d-r:4px;
+  --d-display:"Bricolage Grotesque","Arial Narrow",sans-serif;--d-body:"IBM Plex Sans",system-ui,sans-serif;--d-data:"IBM Plex Mono",ui-monospace,monospace;
+  --d-track:#f4b92e;--d-track-w:2.5;--d-track-dash:none;--d-node-fill:#0f1b2d}
+.d-b{--d-bg:#cba57c;--d-surface:#fffdf8;--d-fg:#2a2019;--d-muted:#4a3828;--d-line:#a5825c;--d-accent:#f5b81f;--d-bar:#55585f;
+  --d-btn-bg:#2a2019;--d-btn-fg:#fffdf8;--d-btn-shadow:4px 4px 0 #f5b81f;--d-r:14px;
+  --d-display:"Zilla Slab",Rockwell,Georgia,serif;--d-body:"Work Sans",system-ui,sans-serif;--d-data:"Work Sans",system-ui,sans-serif;
+  --d-track:#2a2019;--d-track-w:9;--d-track-dash:2 16;--d-node-fill:#fffdf8}
+.d-c{--d-bg:#ffffff;--d-surface:#f4f7fd;--d-fg:#141a2e;--d-muted:#55607c;--d-line:#d3dcee;--d-accent:#ffc629;--d-bar:#8e96a8;
+  --d-btn-bg:#1f3fd1;--d-btn-fg:#ffffff;--d-btn-shadow:none;--d-r:8px;
+  --d-display:"Red Hat Display","Trebuchet MS",sans-serif;--d-body:"Red Hat Text",system-ui,sans-serif;--d-data:"Red Hat Mono",ui-monospace,monospace;
+  --d-track:#1f3fd1;--d-track-w:3;--d-track-dash:none;--d-node-fill:#ffffff;
+  background-image:linear-gradient(#e6ecf8 1px,transparent 1px),linear-gradient(90deg,#e6ecf8 1px,transparent 1px);background-size:24px 24px}
+
+.d-nav{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:18px clamp(18px,4vw,40px);border-bottom:1px solid var(--d-line)}
+.lockup{display:flex;align-items:center;gap:10px;font-family:var(--d-display);font-weight:800;font-size:1.25rem;letter-spacing:.01em}
+.lockup svg{width:54px;height:30px;flex:none}
+.d-links{display:flex;gap:18px;flex-wrap:wrap;font-size:.95rem;color:var(--d-muted)}
+.d-hero{padding:clamp(28px,6vw,64px) clamp(18px,4vw,40px);display:flex;flex-direction:column;gap:18px;align-items:flex-start}
+.d-hero h3{font-family:var(--d-display);font-weight:800;font-size:clamp(2rem,5.4vw,3.6rem);line-height:1.04;margin:0;max-width:16ch;text-wrap:balance;letter-spacing:-.01em}
+.d-b .d-hero h3{font-weight:700;letter-spacing:0}
+.d-c .d-hero h3{font-weight:900}
+.d-hero p{margin:0;max-width:54ch;font-size:1.1rem;color:var(--d-muted)}
+.btns{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:6px}
+.btn{font:600 1rem var(--d-body);padding:12px 20px;border-radius:var(--d-r);border:2px solid var(--d-btn-bg);background:var(--d-btn-bg);color:var(--d-btn-fg);box-shadow:var(--d-btn-shadow);cursor:pointer}
+.btn.alt{background:transparent;color:var(--d-fg);border-color:var(--d-fg);box-shadow:none}
+.pill{font:500 .8rem var(--d-data);padding:4px 10px;border-radius:999px;border:1px solid var(--d-line);color:var(--d-muted);background:var(--d-surface)}
+.pill.on{background:var(--d-accent);border-color:var(--d-accent);color:#1d1606}
+
+.d-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1px;background:var(--d-line);border-top:1px solid var(--d-line)}
+.cell{background:var(--d-bg);padding:22px clamp(18px,4vw,40px);min-width:0;display:flex;flex-direction:column;gap:12px}
+.d-c .cell{background:rgba(255,255,255,.86)}
+.cell h4{margin:0;font:600 .85rem var(--d-body);color:var(--d-muted)}
+.sw{display:flex;flex-wrap:wrap;gap:10px}
+.sw div{display:flex;flex-direction:column;gap:4px;font:400 .75rem var(--d-data);color:var(--d-muted)}
+.sw i{display:block;width:56px;height:40px;border-radius:calc(var(--d-r)/2);border:1px solid var(--d-line)}
+.spec-d{font-family:var(--d-display);font-weight:800;font-size:1.7rem;line-height:1.1}
+.d-b .spec-d{font-weight:700}
+.spec-b{font-size:1rem;color:var(--d-fg);max-width:44ch}
+.spec-m{font:400 .85rem var(--d-data);color:var(--d-muted);font-variant-numeric:tabular-nums}
+
+.d-map{border-top:1px solid var(--d-line);padding:22px clamp(18px,4vw,40px) 26px;display:flex;flex-direction:column;gap:8px}
+.d-c .d-map{background:rgba(255,255,255,.7)}
+.d-map h4{margin:0;font-family:var(--d-display);font-weight:800;font-size:1.35rem}
+.d-b .d-map h4{font-weight:700}
+.d-map>p{margin:0;color:var(--d-muted);font-size:.95rem}
+.mapwrap{overflow-x:auto}
+.mapwrap svg{display:block;width:100%;min-width:640px;height:auto}
+.legend{display:flex;flex-wrap:wrap;gap:8px}
+svg text{font-family:var(--d-body)}
+</style>
+
+<div class="page">
+  <header class="intro">
+    <h1>Three directions for the NHSQA brand</h1>
+    <p>Each one starts from the grey and yellow bell-curve bars on the kit box. They show the same content so you can compare them fairly: the top of the home page, the colors and type, and how the Quant Pipeline map would look. Pick one, or mix parts of two.</p>
+    <nav class="jump" aria-label="Directions"><a href="#a">A. Trading Desk</a><a href="#b">B. Kit Box</a><a href="#c">C. Graph Paper</a></nav>
+  </header>
+
+  <section id="a">
+    <div class="dir-head"><h2>A. Trading Desk</h2><p>Dark navy with the yellow as a signal color. Feels like the screens quants work on: serious, grown-up, credible to sponsor firms. The pipeline reads like a price chart climbing.</p></div>
+    <div class="d d-a" data-dir="a"></div>
+  </section>
+  <section id="b">
+    <div class="dir-head"><h2>B. Kit Box</h2><p>The cardboard of the kit becomes the background of the site. Chunky slab type and game-piece shapes; the pipeline is a board-game track. Friendliest of the three and the best fit for younger students.</p></div>
+    <div class="d d-b" data-dir="b"></div>
+  </section>
+  <section id="c">
+    <div class="dir-head"><h2>C. Graph Paper</h2><p>White graph paper, blue ink, yellow highlighter. Feels like a math notebook: bright, clear and school-friendly. The pipeline is a curve plotted on the grid.</p></div>
+    <div class="d d-c" data-dir="c"></div>
+  </section>
+</div>
+
+<script>
+const STOPS=[
+  {l:["What is","a quant"],s:"done"},{l:["Probability"],s:"done"},{l:["Game","theory"],s:"now"},
+  {l:["Python"],s:"open"},{l:["R"],s:"open"},{l:["C"],s:"open"},
+  {l:["Monthly","seminar"],s:"lock"},{l:["Request","mentorship"],s:"lock"}
+];
+const XS=STOPS.map((_,i)=>50+i*94);
+const YS={
+  a:[280,245,260,210,225,170,135,100],
+  b:[230,130,230,130,230,130,230,130],
+  c:STOPS.map((_,i)=>Math.round(300-190/(1+Math.exp(-(i-3.5)*0.9))))
+};
+const PAL={
+  a:[["#0f1b2d","Navy"],["#172840","Deep blue"],["#f4b92e","Signal yellow"],["#8a97a9","Bar grey"],["#eef2f7","Paper"]],
+  b:[["#cba57c","Kraft"],["#2a2019","Ink"],["#f5b81f","Chip yellow"],["#6f7279","Bar grey"],["#fffdf8","Card white"]],
+  c:[["#ffffff","Paper"],["#1f3fd1","Blue ink"],["#ffc629","Highlighter"],["#8e96a8","Bar grey"],["#141a2e","Pencil"]]
+};
+const TYPE={
+  a:["Bricolage Grotesque","IBM Plex Sans","IBM Plex Mono"],
+  b:["Zilla Slab","Work Sans","Work Sans"],
+  c:["Red Hat Display","Red Hat Text","Red Hat Mono"]
+};
+function bars(){
+  const h=[4,8,13,17,24,24,17,13,8,4];
+  return `<svg viewBox="0 0 54 30" aria-hidden="true">${h.map((v,i)=>`<rect x="${i*5.5}" y="${28-v}" width="4" height="${v}" fill="var(${i===4||i===5?'--d-accent':'--d-bar'})"/>`).join("")}</svg>`;
+}
+function smooth(p){ // Catmull-Rom to cubic bezier
+  let d=`M${p[0][0]},${p[0][1]}`;
+  for(let i=0;i<p.length-1;i++){
+    const a=p[i-1]||p[i],b=p[i],c=p[i+1],e=p[i+2]||c;
+    d+=` C${b[0]+(c[0]-a[0])/6},${b[1]+(c[1]-a[1])/6} ${c[0]-(e[0]-b[0])/6},${c[1]-(e[1]-b[1])/6} ${c[0]},${c[1]}`;
+  }
+  return d;
+}
+function map(dir){
+  const ys=YS[dir],pts=XS.map((x,i)=>[x,ys[i]]);
+  const path=dir==="a"?"M"+pts.map(p=>p.join(",")).join(" L"):smooth(pts);
+  const R=dir==="b"?17:13;
+  let s=`<svg viewBox="0 0 760 340" role="img" aria-label="Sample pipeline map with eight stops: two finished, one in progress, three open, two locked">`;
+  // stage brackets
+  [["Skills",0,5],["Seminars",6,6],["Mentorship",7,7]].forEach(([t,a,b])=>{
+    const x1=XS[a]-30,x2=XS[b]+30;
+    s+=`<line x1="${x1}" y1="30" x2="${x2}" y2="30" stroke="var(--d-line)" stroke-width="2"/><text x="${(x1+x2)/2}" y="20" text-anchor="middle" font-size="13" font-weight="600" fill="var(--d-muted)">${t}</text>`;
+  });
+  s+=`<path d="${path}" fill="none" stroke="var(--d-track)" stroke-width="var(--d-track-w)" stroke-dasharray="var(--d-track-dash)" stroke-linecap="round" stroke-linejoin="round" opacity="${dir==="b"?.55:.9}"/>`;
+  STOPS.forEach((st,i)=>{
+    const x=XS[i],y=ys[i],above=dir==="b"&&y<200;
+    const fill=st.s==="done"?"var(--d-accent)":"var(--d-node-fill)";
+    const stroke=st.s==="lock"?"var(--d-muted)":st.s==="done"?"var(--d-accent)":"var(--d-fg)";
+    s+=`<circle cx="${x}" cy="${y}" r="${R}" fill="${fill}" stroke="${stroke}" stroke-width="${st.s==="now"?4:2.5}" ${st.s==="lock"?'stroke-dasharray="4 4"':""}/>`;
+    if(st.s==="done")s+=`<path d="M${x-5},${y} l4,4 l7,-8" fill="none" stroke="#1d1606" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>`;
+    if(st.s==="now")s+=`<circle cx="${x}" cy="${y}" r="5" fill="var(--d-accent)"/>`;
+    if(st.s==="lock")s+=`<rect x="${x-4.5}" y="${y-1}" width="9" height="7" rx="1.5" fill="var(--d-muted)"/><path d="M${x-3},${y-1} v-2.5 a3,3 0 0 1 6,0 v2.5" fill="none" stroke="var(--d-muted)" stroke-width="1.8"/>`;
+    const n=st.l.length,ty=above?y-R-10-(n-1)*15:y+R+18;
+    s+=`<text x="${x}" y="${ty}" text-anchor="middle" font-size="13" font-weight="${st.s==="now"?700:500}" fill="${st.s==="lock"?"var(--d-muted)":"var(--d-fg)"}">${st.l.map((t,k)=>`<tspan x="${x}" dy="${k?15:0}">${t}</tspan>`).join("")}</text>`;
+  });
+  return s+"</svg>";
+}
+document.querySelectorAll(".d").forEach(el=>{
+  const d=el.dataset.dir,[f1,f2,f3]=TYPE[d];
+  el.innerHTML=`
+  <div class="d-nav"><div class="lockup">${bars()}<span>NHSQA</span></div>
+    <div class="d-links"><span>What is a quant?</span><span>Pipeline</span><span>Quant kits</span><span>Sponsors</span></div></div>
+  <div class="d-hero">
+    <h3>Start your quant journey here.</h3>
+    <p>Most students have never heard the word quant. We teach you the skills, bring in people who do the job, and match you with a mentor.</p>
+    <div class="btns"><button class="btn" type="button">Join free</button><button class="btn alt" type="button">See the pipeline</button></div>
+  </div>
+  <div class="d-grid">
+    <div class="cell"><h4>Colors</h4><div class="sw">${PAL[d].map(([c,n])=>`<div><i style="background:${c}"></i>${n}</div>`).join("")}</div></div>
+    <div class="cell"><h4>Type</h4><div class="spec-d">Nash equilibrium</div>
+      <div class="spec-b">Two firms each choose to cut or hold their price. What should you do if you cannot trust the other side?</div>
+      <div class="spec-m">Headings: ${f1}<br>Text: ${f2}${f3!==f2?`<br>Numbers and code: ${f3}`:""}</div></div>
+    <div class="cell"><h4>Labels</h4><div class="legend"><span class="pill on">Finished</span><span class="pill">In progress</span><span class="pill">Locked</span></div>
+      <div class="spec-m">Payoff (3, 3) &nbsp; EV = 0.5 × 12 − 0.5 × 4</div></div>
+  </div>
+  <div class="d-map"><h4>Your Quant Pipeline</h4><p>Sample for a student partway through: two skills finished, Game theory in progress, mentorship still locked.</p>
+    <div class="mapwrap">${map(d)}</div></div>`;
+});
+</script>
