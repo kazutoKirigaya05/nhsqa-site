@@ -330,3 +330,23 @@ table.payoff.big td.on button:hover { background: var(--hi); }
   .editor { max-height: 320px; }
 }
 .console:has(img) { min-height: 440px; }
+
+/* ---------- 3D kit + blueprint ---------- */
+.kit3d { display: flex; flex-direction: column; gap: 14px; }
+.kit3d-stage { width: 100%; aspect-ratio: 16 / 10; max-height: 620px; background: rgba(255,255,255,.72); border: 1.5px solid var(--pencil); border-radius: 8px; overflow: hidden; touch-action: none; cursor: grab; }
+.kit3d-stage:active { cursor: grabbing; }
+.kit3d-stage canvas { display: block; }
+.kit3d-bar { display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: center; }
+.kit3d-bar label { font-weight: 600; }
+.kit3d-bar input[type="range"] { flex: 1 1 180px; min-width: 0; max-width: 360px; accent-color: var(--ink); height: 28px; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { font: 500 .95rem var(--text); color: var(--pencil); background: var(--paper); border: 1.5px solid var(--pencil); border-radius: 999px; padding: 5px 14px; cursor: pointer; }
+.chip:hover { background: var(--tint); }
+.chip.on { background: var(--hi); }
+@media (max-width: 700px) { .kit3d-stage { aspect-ratio: 1 / 1; } }
+.blueprint { background: var(--paper); border: 1.5px solid var(--pencil); border-radius: 8px; padding: 12px; overflow-x: auto; }
+.blueprint svg { display: block; width: 100%; min-width: 560px; height: auto; }
+.blueprint text { font-family: var(--mono); }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 20px; font-size: .95rem; }
+.legend span { display: inline-flex; align-items: center; gap: 8px; }
+.legend i { display: inline-block; width: 28px; height: 0; border-top: 3px solid; }

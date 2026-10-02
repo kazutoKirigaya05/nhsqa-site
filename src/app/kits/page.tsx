@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { KitBox } from "@/components/KitBox";
+import { Kit3DLoader } from "@/components/kit/Kit3DLoader";
+import { Blueprint } from "@/components/kit/Blueprint";
 import { PayoffTable } from "@/components/PayoffTable";
 import { KitCalculator } from "@/components/KitCalculator";
 import { KIT, KIT_COST, SCENARIOS } from "@/content/site";
@@ -22,6 +24,16 @@ export default function Page() {
 
       <section className="section sheet">
         <div className="wrap stack-lg">
+          <div className="stack-sm">
+            <h2>Open it up</h2>
+            <p className="lede">The box ships flat and folds into shape. Slide to fold it, and look inside.</p>
+          </div>
+          <Kit3DLoader />
+        </div>
+      </section>
+
+      <section className="section">
+        <div className="wrap stack-lg">
           <h2>What is in the box</h2>
           <ul className="parts">
             {KIT.parts.map((p) => <li key={p.name}><h3>{p.name}</h3><p>{p.text}</p></li>)}
@@ -29,7 +41,7 @@ export default function Page() {
         </div>
       </section>
 
-      <section className="section">
+      <section className="section sheet">
         <div className="wrap stack-lg">
           <div className="stack-sm">
             <h2>Five games, five ideas</h2>
@@ -48,7 +60,7 @@ export default function Page() {
         </div>
       </section>
 
-      <section className="section sheet">
+      <section className="section">
         <div className="wrap cols-2">
           <div className="stack">
             <h2>What a kit costs to make</h2>
@@ -64,14 +76,33 @@ export default function Page() {
           <div className="stack">
             <h2>What a sponsorship funds</h2>
             <KitCalculator costPerKit={KIT_COST} />
-            <h3>The box</h3>
-            <dl className="dims">
-              <dt>Manufacture size</dt><dd>{KIT.box.manufacture}</dd>
-              <dt>Inside</dt><dd>{KIT.box.inner}</dd>
-              <dt>Outside</dt><dd>{KIT.box.outer}</dd>
-              <dt>Board thickness</dt><dd>{KIT.box.thickness}</dd>
-            </dl>
             <div className="btns"><Link href="/sponsors" className="btn">Sponsor a batch of kits</Link></div>
+          </div>
+        </div>
+      </section>
+
+      <section className="section sheet">
+        <div className="wrap stack-lg">
+          <div className="stack-sm">
+            <h2>The blueprint</h2>
+            <p className="lede">One sheet of corrugated board, cut along the blue lines and folded along the red ones. No glue or tape.</p>
+          </div>
+          <div className="split">
+            <div className="stack">
+              <div className="legend">
+                <span><i style={{ borderColor: "#2e9e4f" }} />Bleed</span>
+                <span><i style={{ borderColor: "var(--ink)" }} />Trim</span>
+                <span><i style={{ borderColor: "#d1332e" }} />Crease</span>
+              </div>
+              <dl className="dims">
+                <dt>Manufacture size</dt><dd>{KIT.box.manufacture}</dd>
+                <dt>Inside</dt><dd>{KIT.box.inner}</dd>
+                <dt>Outside</dt><dd>{KIT.box.outer}</dd>
+                <dt>Board thickness</dt><dd>{KIT.box.thickness}</dd>
+              </dl>
+              <p className="muted">A simplified drawing for the website. The exact cutting file comes from the box manufacturer.</p>
+            </div>
+            <Blueprint />
           </div>
         </div>
       </section>
