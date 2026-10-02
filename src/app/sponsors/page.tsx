@@ -46,7 +46,8 @@ export default function Page() {
             <h2>Talk to us about sponsoring</h2>
             <p className="muted">Tell us who you are and we will reply with details and next steps.</p>
           </div>
-          <SimpleForm id="sponsor" submit="Send sponsorship enquiry" notReady="Not sent. Enquiries open when the site launches."
+          <SimpleForm id="sponsor" kind="sponsor" submit="Send sponsorship enquiry" done="Thanks. We will reply by email with details and next steps."
+            map={{ name: "name", email: "email", firm: "organization", role: "job_role", message: "message" }}
             fields={[
               { name: "name", label: "Your name", required: true, half: true, autoComplete: "name" },
               { name: "email", label: "Work email", type: "email", required: true, half: true, autoComplete: "email" },

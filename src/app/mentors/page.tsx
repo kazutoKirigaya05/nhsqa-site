@@ -38,7 +38,8 @@ export default function Page() {
             <h2>Apply to mentor</h2>
             <p className="muted">It takes a few minutes. We reply to every application.</p>
           </div>
-          <SimpleForm id="mentor" submit="Send application" notReady="Not sent. Mentor applications open when the site launches."
+          <SimpleForm id="mentor" kind="mentor" submit="Send application" done="Thanks for applying. Our officers review every application and will reply by email."
+            map={{ name: "name", email: "email", employer: "organization", role: "job_role", linkedin: "link", why: "message" }}
             fields={[
               { name: "name", label: "Your name", required: true, half: true, autoComplete: "name" },
               { name: "email", label: "Email", type: "email", required: true, half: true, autoComplete: "email" },

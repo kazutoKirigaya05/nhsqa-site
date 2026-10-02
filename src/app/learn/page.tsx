@@ -14,7 +14,7 @@ export default function Page() {
       <section className="section sheet">
         <div className="wrap stack">
           <TrackGrid />
-          <p className="muted">Your progress is saved in this browser. <ResetProgress /></p>
+          <p className="muted">Progress is saved to your account when you are logged in, and in this browser when you are not. <ResetProgress /></p>
         </div>
       </section>
     </>

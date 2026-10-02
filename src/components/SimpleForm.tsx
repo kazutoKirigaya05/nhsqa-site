@@ -1,5 +1,7 @@
 "use client";
 import { useState } from "react";
+import { supabase } from "@/lib/supabase";
+import { friendly } from "@/lib/session";
 
 export type Field = {
   name: string; label: string;
@@ -7,11 +9,25 @@ export type Field = {
   options?: string[]; required?: boolean; half?: boolean; hint?: string; autoComplete?: string;
 };
 
-/** Forms are not connected to a database yet. Submitting says so plainly and saves nothing. */
-export function SimpleForm({ id, fields, submit, notReady }: { id: string; fields: Field[]; submit: string; notReady: string }) {
-  const [tried, setTried] = useState(false);
+/** Saves a contact, sponsor or mentor form to the database. `map` says which column each field goes in. */
+export function SimpleForm({ id, kind, fields, submit, map, done }: { id: string; kind: "contact" | "sponsor" | "mentor"; fields: Field[]; submit: string; map: Record<string, string>; done: string }) {
+  const [status, setStatus] = useState<{ kind: "idle" | "busy" | "sent" | "error"; msg?: string }>({ kind: "idle" });
+
+  async function send(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const f = new FormData(e.currentTarget);
+    if (f.get("website")) { setStatus({ kind: "sent" }); return; } // filled only by bots
+    const row: Record<string, string> = { kind };
+    for (const [field, column] of Object.entries(map)) { const v = String(f.get(field) ?? "").trim(); if (v) row[column] = v; }
+    setStatus({ kind: "busy" });
+    const { error } = await supabase().from("form_submissions").insert(row);
+    setStatus(error ? { kind: "error", msg: friendly(error) } : { kind: "sent" });
+  }
+
+  if (status.kind === "sent") return <div className="form"><div className="full stack-sm"><h2 className="h3">Sent</h2><p>{done}</p></div></div>;
   return (
-    <form className="form" onSubmit={(e) => { e.preventDefault(); setTried(true); }}>
+    <form className="form" onSubmit={send}>
+      <input name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" style={{ position: "absolute", left: "-9999px", width: 1, height: 1 }} />
       {fields.map((f) => {
         const fid = `${id}-${f.name}`;
         if (f.type === "checkbox") {
@@ -40,8 +56,8 @@ export function SimpleForm({ id, fields, submit, notReady }: { id: string; field
         );
       })}
       <div className="full stack-sm" style={{ alignItems: "flex-start" }}>
-        <button type="submit" className="btn">{submit}</button>
-        <div role="status">{tried && <p className="notice">{notReady} Nothing you typed was saved.</p>}</div>
+        <button type="submit" className="btn" disabled={status.kind === "busy"}>{status.kind === "busy" ? "Sending" : submit}</button>
+        <div role="alert">{status.kind === "error" && <p className="verdict bad">{status.msg}</p>}</div>
       </div>
     </form>
   );

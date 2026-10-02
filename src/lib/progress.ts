@@ -39,6 +39,7 @@ export function markStep(key: string, index: number, total: number) {
   if (arr[index]) return;
   arr[index] = true;
   write({ ...p, steps: { ...p.steps, [key]: arr } });
+  remoteSave?.(key);
 }
 
 export function saveQuiz(key: string, score: number, total: number) {
@@ -46,9 +47,51 @@ export function saveQuiz(key: string, score: number, total: number) {
   const best = p.quiz[key];
   if (best && best.score >= score) return;
   write({ ...p, quiz: { ...p.quiz, [key]: { score, total } } });
+  remoteSave?.(key);
 }
 
-export function resetProgress() { write(EMPTY); }
+export function resetProgress() {
+  const keys = new Set([...Object.keys(cache.steps), ...Object.keys(cache.quiz)]);
+  write(EMPTY);
+  keys.forEach((k) => remoteSave?.(k));
+}
+
+/* ---- account sync: session.ts plugs a saver in when someone is logged in ---- */
+let remoteSave: ((key: string) => void) | null = null;
+export function setRemoteSaver(fn: ((key: string) => void) | null) { remoteSave = fn; }
+
+export function exportLesson(key: string) {
+  const p = read();
+  return { steps: p.steps[key] ?? [], quiz: p.quiz[key] ?? null };
+}
+
+type RemoteRow = { lesson_key: string; steps: unknown; quiz_score: number | null; quiz_total: number | null };
+/** Merges the account's saved progress with this browser's. Returns the lessons the account is missing. */
+export function mergeRemote(rows: RemoteRow[]): string[] {
+  const local = read();
+  const steps = { ...local.steps }; const quiz = { ...local.quiz };
+  const upload = new Set<string>();
+  const seen = new Set<string>();
+  for (const row of rows) {
+    const key = row.lesson_key; seen.add(key);
+    const remote = Array.isArray(row.steps) ? row.steps.map(Boolean) : [];
+    const mine = local.steps[key] ?? [];
+    const merged = Array.from({ length: Math.max(remote.length, mine.length) }, (_, i) => !!remote[i] || !!mine[i]);
+    if (merged.length) steps[key] = merged;
+    if (merged.some((v, i) => v && !remote[i])) upload.add(key);
+    const lq = local.quiz[key];
+    if (row.quiz_score !== null && row.quiz_total !== null && (!lq || row.quiz_score >= lq.score)) quiz[key] = { score: row.quiz_score, total: row.quiz_total };
+    else if (lq) upload.add(key);
+  }
+  for (const key of new Set([...Object.keys(local.steps), ...Object.keys(local.quiz)])) if (!seen.has(key)) upload.add(key);
+  write({ steps, quiz });
+  return [...upload];
+}
+
+export function clearLocalProgress() {
+  write(EMPTY);
+  try { localStorage.removeItem(CODE_KEY); } catch {}
+}
 
 export function lessonDone(p: Progress, track: string, slug: string): boolean {
   const lesson = LESSONS[track]?.find((l) => l.slug === slug);

@@ -10,7 +10,8 @@ export default function Page() {
           <h1 className="long">Contact us</h1>
           <p className="lede">Questions from students, parents, teachers and firms are all welcome.</p>
         </div>
-        <SimpleForm id="contact" submit="Send message" notReady="Not sent. The contact form opens when the site launches."
+        <SimpleForm id="contact" kind="contact" submit="Send message" done="Thanks. We will reply by email."
+            map={{ name: "name", email: "email", who: "audience", message: "message" }}
           fields={[
             { name: "name", label: "Your name", required: true, half: true, autoComplete: "name" },
             { name: "email", label: "Email", type: "email", required: true, half: true, autoComplete: "email" },
