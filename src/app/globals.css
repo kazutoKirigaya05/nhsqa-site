@@ -120,7 +120,7 @@ a:hover { background: var(--hi); color: var(--pencil); text-decoration-color: va
 /* plot panel (pipeline map) */
 .plot { background: rgba(255,255,255,.72); border: 1.5px solid var(--pencil); border-radius: 8px; padding: 16px 8px 8px; }
 .plot-scroll { overflow-x: auto; }
-.plot svg { display: block; width: 100%; min-width: 980px; height: auto; }
+.plot svg { display: block; width: 100%; min-width: 680px; height: auto; }
 .plot text { font-family: var(--text); }
 .plot a { text-decoration: none; }
 .plot a:hover { background: none; }
@@ -131,7 +131,7 @@ a:hover { background: var(--hi); color: var(--pencil); text-decoration-color: va
 @keyframes pop { from { opacity: 0; } }
 @media (prefers-reduced-motion: reduce) { .plot .curve, .plot .stop { animation: none; } }
 .plot-hint { display: none; font-size: .85rem; color: var(--muted); padding: 6px 8px 2px; }
-@media (max-width: 1040px) { .plot-hint { display: block; } }
+@media (max-width: 720px) { .plot-hint { display: block; } }
 
 /* grids */
 .cols-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(24px, 4vw, 56px); align-items: start; }

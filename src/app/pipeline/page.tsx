@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { LivePipelineMap } from "@/components/learn/TrackViews";
-import { TRACKS } from "@/content/site";
+import { GROUPS, TRACKS } from "@/content/site";
 
 export const metadata = { title: "The Quant Pipeline" };
 
@@ -25,11 +25,11 @@ export default function Page() {
         <div className="wrap stack-lg">
           <div className="stack-sm">
             <h2>Stage 1: learn the skills</h2>
-            <p className="lede">{TRACKS.length} tracks in two groups. Each one is a set of short lessons where you read a little, then do something: run code, play a game, answer a question. A quiz ends each track.</p>
+            <p className="lede">{TRACKS.length} tracks in three groups. Each one is a set of short lessons where you read a little, then do something: run code, play a game, answer a question. A quiz ends each track.</p>
           </div>
-          {(["Foundations", "Quant skills"] as const).map((group) => (
+          {GROUPS.map(({ name: group, blurb }) => (
             <div key={group}>
-              <h3 className="group-head">{group === "Foundations" ? "Foundations: the math and the code" : "Quant skills: what the job is made of"}</h3>
+              <h3 className="group-head">{group}: {blurb.toLowerCase()}</h3>
               <div className="rows">
                 {TRACKS.map((t, i) => t.group !== group ? null : (
                   <div className="row" id={t.slug} key={t.slug}>

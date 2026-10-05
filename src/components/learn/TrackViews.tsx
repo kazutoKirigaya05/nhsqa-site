@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { TRACKS } from "@/content/site";
+import { GROUPS, TRACKS } from "@/content/site";
 import { LESSONS } from "@/content/lessons";
 import { lessonDone, lessonStarted, resetProgress, trackStatus, useProgress } from "@/lib/progress";
 import { PipelineMap } from "@/components/PipelineMap";
@@ -18,9 +18,9 @@ export function TrackGrid() {
   const p = useProgress();
   return (
     <div className="stack">
-      {(["Foundations", "Quant skills"] as const).map((group) => (
+      {GROUPS.map(({ name: group, blurb }) => (
         <div key={group}>
-          <h2 className="group-head">{group}</h2>
+          <h2 className="group-head">{group} <span className="muted" style={{ fontWeight: 500 }}>{blurb}</span></h2>
           <div className="rows">
             {TRACKS.map((t, i) => {
               if (t.group !== group) return null;

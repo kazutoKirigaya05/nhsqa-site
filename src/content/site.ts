@@ -1,14 +1,26 @@
 export const ORG = "National High School Quant Association";
 
-export type Track = { slug: string; title: string; label: string[]; blurb: string; topics: string[]; group: "Foundations" | "Quant skills" };
+export type Track = { slug: string; title: string; label: string[]; blurb: string; topics: string[]; group: Group };
+export type Group = "Foundations" | "Quant skills" | "Going further";
+export const GROUPS: { name: Group; blurb: string }[] = [
+  { name: "Foundations", blurb: "The math and the code" },
+  { name: "Quant skills", blurb: "What the job is made of" },
+  { name: "Going further", blurb: "Sharper tools, and getting hired" },
+];
 
 export const TRACKS: Track[] = [
   { slug: "what-is-a-quant", title: "What is a quant", label: ["What is", "a quant"],
     blurb: "What the job is, the kinds of quants, and how firms use math to make decisions with money on the line.",
     topics: ["Researcher, trader, developer", "How a market works", "Thinking in bets"], group: "Foundations" },
-  { slug: "probability", title: "Probability and statistics", label: ["Probability"],
+  { slug: "math", title: "Math for quants", label: ["Math for", "quants"], group: "Foundations",
+    blurb: "The handful of math ideas everything else leans on: functions, growth, logs, vectors and rates of change.",
+    topics: ["Functions and slopes", "Exponential growth", "Logarithms", "Vectors and matrices", "Rates of change"] },
+  { slug: "probability", title: "Probability", label: ["Probability"],
     blurb: "The language every quant question is asked in. Learn to put a number on how likely something is and what it is worth.",
     topics: ["Independent events", "Expected value", "Risk and spread", "Conditional probability"], group: "Foundations" },
+  { slug: "statistics", title: "Statistics", label: ["Statistics"], group: "Foundations",
+    blurb: "Learn what data can and cannot tell you: the bell curve, sampling, confidence, testing and regression.",
+    topics: ["The normal distribution", "Sampling", "Confidence intervals", "Hypothesis tests", "Regression"] },
   { slug: "game-theory", title: "Game theory", label: ["Game", "theory"],
     blurb: "How to choose when your result depends on what someone else chooses. You play each game before you learn its name.",
     topics: ["Dominant strategies", "Nash equilibrium", "Auctions", "Bluffing and signaling"], group: "Foundations" },
@@ -24,18 +36,39 @@ export const TRACKS: Track[] = [
   { slug: "markets", title: "Markets and trading", label: ["Markets"], group: "Quant skills",
     blurb: "How trading actually works: order books, market makers, going long and short, returns and arbitrage.",
     topics: ["The order book", "Market making", "Long and short", "Returns", "Arbitrage"] },
+  { slug: "bonds", title: "Bonds and interest rates", label: ["Bonds and", "rates"], group: "Quant skills",
+    blurb: "Why a dollar today beats a dollar tomorrow, how bonds are priced, and why interest rates move every market.",
+    topics: ["Present value", "Bond pricing", "Yield", "Duration", "The yield curve"] },
   { slug: "options", title: "Options and pricing", label: ["Options"], group: "Quant skills",
     blurb: "The contracts quants are famous for pricing. Build payoffs in code, then price an option three different ways.",
     topics: ["Calls and puts", "Put-call parity", "The binomial model", "Monte Carlo", "Delta hedging"] },
-  { slug: "strategies", title: "Strategies and backtesting", label: ["Strategies"], group: "Quant skills",
-    blurb: "Turn an idea into a trading rule in Python, test it on past prices, and learn how a backtest can fool you.",
-    topics: ["Moving averages", "Trading rules", "Backtesting", "Sharpe ratio", "Overfitting"] },
+  { slug: "portfolio", title: "Portfolio theory", label: ["Portfolios"], group: "Quant skills",
+    blurb: "How to combine investments: weights, the efficient frontier, beta, and what the market pays you for.",
+    topics: ["Portfolio weights", "The efficient frontier", "Beta", "CAPM and alpha", "Index funds"] },
   { slug: "risk", title: "Risk and portfolios", label: ["Risk"], group: "Quant skills",
     blurb: "Staying in the game matters more than any single win. Measure risk, spread it out, and size your bets.",
     topics: ["Volatility", "Diversification", "Correlation", "Kelly sizing", "Value at risk"] },
-  { slug: "interview", title: "Quant interview problems", label: ["Interview", "problems"], group: "Quant skills",
+  { slug: "strategies", title: "Strategies and backtesting", label: ["Strategies"], group: "Quant skills",
+    blurb: "Turn an idea into a trading rule in Python, test it on past prices, and learn how a backtest can fool you.",
+    topics: ["Moving averages", "Trading rules", "Backtesting", "Sharpe ratio", "Overfitting"] },
+  { slug: "timeseries", title: "Time series", label: ["Time", "series"], group: "Quant skills",
+    blurb: "Data that arrives in order has its own rules. Find trends, test for random walks, and trade mean reversion.",
+    topics: ["Trend and noise", "Autocorrelation", "Random walks", "Mean reversion", "Pairs trading"] },
+  { slug: "algorithms", title: "Algorithms and speed", label: ["Algorithms"], group: "Going further",
+    blurb: "Write code that stays fast as the data grows: searching, sorting, hashing, recursion and a tiny order book.",
+    topics: ["Counting steps", "Binary search", "Sorting", "Recursion", "Heaps"] },
+  { slug: "ml", title: "Machine learning", label: ["Machine", "learning"], group: "Going further",
+    blurb: "Teach a program to find patterns, measure whether it really learned, and see why markets are a hard case.",
+    topics: ["Training and testing", "Fitting a line", "Measuring error", "Classification", "Nearest neighbors"] },
+  { slug: "psychology", title: "Trading psychology", label: ["Psychology"], group: "Going further",
+    blurb: "The mistakes every human trader makes, why quants build rules to avoid them, and how to judge your own decisions.",
+    topics: ["Loss aversion", "Overconfidence", "Anchoring", "Herds and bubbles", "Process over outcome"] },
+  { slug: "interview", title: "Quant interview problems", label: ["Interview", "problems"], group: "Going further",
     blurb: "The puzzles trading firms really ask: mental math, dice, Monty Hall, and making a market on the spot.",
     topics: ["Mental math", "Estimation", "Dice and cards", "Monty Hall", "Make me a market"] },
+  { slug: "careers", title: "Getting there", label: ["Getting", "there"], group: "Going further",
+    blurb: "The firms, the roles, what to study, what to build, how hiring works, and the rules every trader must follow.",
+    topics: ["Kinds of firms", "What to study", "Projects", "The interview process", "Ethics and rules"] },
 ];
 
 export const LATER_STOPS = [
