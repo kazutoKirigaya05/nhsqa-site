@@ -9,6 +9,7 @@ const LINKS = [
   ["/what-is-a-quant", "What is a quant?"],
   ["/pipeline", "Pipeline"],
   ["/learn", "Lessons"],
+  ["/trade", "Trade"],
   ["/kits", "Quant kits"],
   ["/events", "Events"],
   ["/sponsors", "Sponsors"],
