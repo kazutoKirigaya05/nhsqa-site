@@ -1,26 +1,41 @@
 export const ORG = "National High School Quant Association";
 
-export type Track = { slug: string; title: string; label: string[]; blurb: string; topics: string[] };
+export type Track = { slug: string; title: string; label: string[]; blurb: string; topics: string[]; group: "Foundations" | "Quant skills" };
 
 export const TRACKS: Track[] = [
   { slug: "what-is-a-quant", title: "What is a quant", label: ["What is", "a quant"],
     blurb: "What the job is, the kinds of quants, and how firms use math to make decisions with money on the line.",
-    topics: ["Researcher, trader, developer", "How a market works", "Thinking in bets"] },
+    topics: ["Researcher, trader, developer", "How a market works", "Thinking in bets"], group: "Foundations" },
   { slug: "probability", title: "Probability and statistics", label: ["Probability"],
     blurb: "The language every quant question is asked in. Learn to put a number on how likely something is and what it is worth.",
-    topics: ["Independent events", "Expected value", "Risk and spread", "Conditional probability"] },
+    topics: ["Independent events", "Expected value", "Risk and spread", "Conditional probability"], group: "Foundations" },
   { slug: "game-theory", title: "Game theory", label: ["Game", "theory"],
     blurb: "How to choose when your result depends on what someone else chooses. You play each game before you learn its name.",
-    topics: ["Dominant strategies", "Nash equilibrium", "Auctions", "Bluffing and signaling"] },
+    topics: ["Dominant strategies", "Nash equilibrium", "Auctions", "Bluffing and signaling"], group: "Foundations" },
   { slug: "python", title: "Python", label: ["Python"],
     blurb: "The language most quant research is written in. Start from zero and finish by simulating ten thousand coin flips.",
-    topics: ["Variables and loops", "Functions", "Lists and data", "Simulation"] },
+    topics: ["Variables and loops", "Functions", "Lists and data", "Simulation"], group: "Foundations" },
   { slug: "r", title: "R", label: ["R"],
     blurb: "A language built for statistics. Summarize data, run a simulation and plot the result.",
-    topics: ["Vectors", "Averages and spread", "Simulation", "Plotting"] },
+    topics: ["Vectors", "Averages and spread", "Simulation", "Plotting"], group: "Foundations" },
   { slug: "c", title: "C", label: ["C"],
     blurb: "How a computer actually runs your code, and why a few millionths of a second matter when you are trading.",
-    topics: ["Types and memory", "Loops and functions", "Arrays and pointers", "Why speed matters"] },
+    topics: ["Types and memory", "Loops and functions", "Arrays and pointers", "Why speed matters"], group: "Foundations" },
+  { slug: "markets", title: "Markets and trading", label: ["Markets"], group: "Quant skills",
+    blurb: "How trading actually works: order books, market makers, going long and short, returns and arbitrage.",
+    topics: ["The order book", "Market making", "Long and short", "Returns", "Arbitrage"] },
+  { slug: "options", title: "Options and pricing", label: ["Options"], group: "Quant skills",
+    blurb: "The contracts quants are famous for pricing. Build payoffs in code, then price an option three different ways.",
+    topics: ["Calls and puts", "Put-call parity", "The binomial model", "Monte Carlo", "Delta hedging"] },
+  { slug: "strategies", title: "Strategies and backtesting", label: ["Strategies"], group: "Quant skills",
+    blurb: "Turn an idea into a trading rule in Python, test it on past prices, and learn how a backtest can fool you.",
+    topics: ["Moving averages", "Trading rules", "Backtesting", "Sharpe ratio", "Overfitting"] },
+  { slug: "risk", title: "Risk and portfolios", label: ["Risk"], group: "Quant skills",
+    blurb: "Staying in the game matters more than any single win. Measure risk, spread it out, and size your bets.",
+    topics: ["Volatility", "Diversification", "Correlation", "Kelly sizing", "Value at risk"] },
+  { slug: "interview", title: "Quant interview problems", label: ["Interview", "problems"], group: "Quant skills",
+    blurb: "The puzzles trading firms really ask: mental math, dice, Monty Hall, and making a market on the spot.",
+    topics: ["Mental math", "Estimation", "Dice and cards", "Monty Hall", "Make me a market"] },
 ];
 
 export const LATER_STOPS = [

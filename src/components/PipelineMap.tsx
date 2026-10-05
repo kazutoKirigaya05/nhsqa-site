@@ -2,8 +2,9 @@ import Link from "next/link";
 import { TRACKS, LATER_STOPS } from "@/content/site";
 
 const STOPS = [...TRACKS.map((t) => ({ slug: t.slug, label: t.label })), ...LATER_STOPS];
-const XS = STOPS.map((_, i) => 52 + i * 94);
-const YS = STOPS.map((_, i) => Math.round(262 - 180 / (1 + Math.exp(-(i - 3.5) * 0.9))));
+const STEP = 88;
+const XS = STOPS.map((_, i) => 52 + i * STEP);
+const YS = STOPS.map((_, i) => Math.round(272 - 190 / (1 + Math.exp(-(i - (STOPS.length - 1) / 2) * 0.55))));
 const PTS = XS.map((x, i) => [x, YS[i]] as const);
 
 function smooth(p: readonly (readonly [number, number])[]) {
@@ -15,7 +16,10 @@ function smooth(p: readonly (readonly [number, number])[]) {
   return d;
 }
 
-const GROUPS: [string, number, number][] = [["Skills", 0, 5], ["Seminars", 6, 6], ["Mentorship", 7, 7]];
+const F = TRACKS.filter((t) => t.group === "Foundations").length;
+const N = TRACKS.length;
+const GROUPS: [string, number, number][] = [["Foundations", 0, F - 1], ["Quant skills", F, N - 1], ["Seminars", N, N], ["Mentorship", N + 1, N + 1]];
+const WIDTH = 104 + (STOPS.length - 1) * STEP;
 
 type State = "new" | "now" | "done";
 
@@ -28,9 +32,9 @@ export function PipelineMap({ base = "", learn = false, status = {} }: { base?: 
   return (
     <div className="plot">
       <div className="plot-scroll">
-        <svg viewBox="0 0 764 318" role="img" aria-label="The Quant Pipeline: six skill tracks, then monthly seminars, then mentorship">
+        <svg viewBox={`0 0 ${WIDTH} 330`} role="img" aria-label={`The Quant Pipeline: ${N} skill tracks, then monthly seminars, then mentorship`}>
           {GROUPS.map(([t, a, b]) => {
-            const x1 = XS[a] - 32, x2 = XS[b] + 32;
+            const x1 = XS[a] - 34, x2 = XS[b] + 34;
             return (
               <g key={t}>
                 <line x1={x1} y1={30} x2={x2} y2={30} stroke="var(--bar)" strokeWidth={1.5} />

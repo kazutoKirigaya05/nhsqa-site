@@ -7,6 +7,7 @@ type Game = Extract<Step, { kind: "game" }>;
 type Pick = Extract<Step, { kind: "pick" }>;
 type Sim = Extract<Step, { kind: "sim" }>;
 
+const coin = () => (Math.random() < 0.5 ? 0 : 1);
 const fmt = (n: number) => (n < 0 ? `−${-n}` : String(n));
 
 function Table({ m, mark, selected, onCell }: { m: Matrix; mark?: [number, number] | null; selected?: string[]; onCell?: (r: number, c: number) => void }) {
@@ -45,7 +46,10 @@ export function GameStep({ step, onPass }: { step: Game; onPass: () => void }) {
 
   function play(r: number) {
     if (over) return;
-    const c = step.bot === "second" ? 1 : round % 2 === 0 ? 1 : 0;
+    const c = step.bot === "second" ? 1
+      : step.bot === "alternate" ? (round % 2 === 0 ? 1 : 0)
+      : step.bot === "random" ? coin()
+      : round === 0 ? 0 : history[round - 1][0]; // copycat: starts friendly, then repeats your last move
     const next = [...history, [r, c] as [number, number]];
     setHistory(next);
     if (next.length >= step.rounds) onPass();

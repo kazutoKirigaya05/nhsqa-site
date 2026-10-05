@@ -25,20 +25,25 @@ export default function Page() {
         <div className="wrap stack-lg">
           <div className="stack-sm">
             <h2>Stage 1: learn the skills</h2>
-            <p className="lede">Six tracks. Each one is a set of short lessons where you read a little, then do something: run code, play a game, answer a question. A quiz ends each track.</p>
+            <p className="lede">{TRACKS.length} tracks in two groups. Each one is a set of short lessons where you read a little, then do something: run code, play a game, answer a question. A quiz ends each track.</p>
           </div>
-          <div className="rows">
-            {TRACKS.map((t, i) => (
-              <div className="row" id={t.slug} key={t.slug}>
-                <h3><span className="num muted">{i + 1}&nbsp;&nbsp;</span>{t.title}</h3>
-                <div>
-                  <p>{t.blurb}</p>
-                  <ul className="topics">{t.topics.map((x) => <li key={x}>{x}</li>)}</ul>
-                  <p style={{ marginTop: 12 }}><Link href={`/learn/${t.slug}`}>Open {t.title}</Link></p>
-                </div>
+          {(["Foundations", "Quant skills"] as const).map((group) => (
+            <div key={group}>
+              <h3 className="group-head">{group === "Foundations" ? "Foundations: the math and the code" : "Quant skills: what the job is made of"}</h3>
+              <div className="rows">
+                {TRACKS.map((t, i) => t.group !== group ? null : (
+                  <div className="row" id={t.slug} key={t.slug}>
+                    <h4 className="h3"><span className="num muted">{i + 1}&nbsp;&nbsp;</span>{t.title}</h4>
+                    <div>
+                      <p>{t.blurb}</p>
+                      <ul className="topics">{t.topics.map((x) => <li key={x}>{x}</li>)}</ul>
+                      <p style={{ marginTop: 12 }}><Link href={`/learn/${t.slug}`}>Open {t.title}</Link></p>
+                    </div>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
       </section>
 

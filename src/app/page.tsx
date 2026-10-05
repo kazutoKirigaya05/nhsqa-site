@@ -42,7 +42,7 @@ export default function Home() {
             <p className="lede">Three stages, in order. Your map fills in as you go.</p>
           </div>
           <ol className="stages">
-            <li><h3>Learn the skills</h3><p>Short interactive lessons in probability, game theory, Python, R and C. You write real code in your browser and take a quiz at the end of each track.</p></li>
+            <li><h3>Learn the skills</h3><p>Start with probability, game theory, Python, R and C. Then use them on what quants do: markets, options, trading strategies and risk. You write real code in your browser the whole way.</p></li>
             <li><h3>Come to a seminar</h3><p>Once a month, someone who works as a quant talks about what they do and takes your questions.</p></li>
             <li><h3>Request a mentor</h3><p>When you have finished the first two stages, ask for a mentor. Our officers match you with a professional we have vetted.</p></li>
           </ol>

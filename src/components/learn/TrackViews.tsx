@@ -17,26 +17,34 @@ export function LivePipelineMap() {
 export function TrackGrid() {
   const p = useProgress();
   return (
-    <div className="rows">
-      {TRACKS.map((t, i) => {
-        const s = trackStatus(p, t.slug);
-        return (
-          <div className="row track-row" key={t.slug}>
-            <div>
-              <h2 className="h3"><span className="num muted">{i + 1}&nbsp;&nbsp;</span>{t.title}</h2>
-              <span className={`state ${s.state}`}>{LABEL[s.state]}</span>
-            </div>
-            <div className="stack-sm">
-              <p>{t.blurb}</p>
-              <div className="meter" role="img" aria-label={`${s.done} of ${s.total} lessons finished`}><span style={{ width: `${(100 * s.done) / s.total}%` }} /></div>
-              <div className="btns">
-                <Link className={s.state === "done" ? "btn alt sm" : "btn sm"} href={`/learn/${t.slug}`}>{s.state === "new" ? "Start track" : s.state === "now" ? "Continue" : "Review"}</Link>
-                <span className="muted"><span className="num">{s.done}</span> of <span className="num">{s.total}</span> lessons</span>
-              </div>
-            </div>
+    <div className="stack">
+      {(["Foundations", "Quant skills"] as const).map((group) => (
+        <div key={group}>
+          <h2 className="group-head">{group}</h2>
+          <div className="rows">
+            {TRACKS.map((t, i) => {
+              if (t.group !== group) return null;
+              const s = trackStatus(p, t.slug);
+              return (
+                <div className="row track-row" key={t.slug}>
+                  <div>
+                    <h3 className="h3"><span className="num muted">{i + 1}&nbsp;&nbsp;</span>{t.title}</h3>
+                    <span className={`state ${s.state}`}>{LABEL[s.state]}</span>
+                  </div>
+                  <div className="stack-sm">
+                    <p>{t.blurb}</p>
+                    <div className="meter" role="img" aria-label={`${s.done} of ${s.total} lessons finished`}><span style={{ width: `${(100 * s.done) / s.total}%` }} /></div>
+                    <div className="btns">
+                      <Link className={s.state === "done" ? "btn alt sm" : "btn sm"} href={`/learn/${t.slug}`}>{s.state === "new" ? "Start track" : s.state === "now" ? "Continue" : "Review"}</Link>
+                      <span className="muted"><span className="num">{s.done}</span> of <span className="num">{s.total}</span> lessons</span>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
           </div>
-        );
-      })}
+        </div>
+      ))}
     </div>
   );
 }

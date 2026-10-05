@@ -23,7 +23,9 @@ export function CodeStep({ step, id, passed, onPass }: { step: CodeStepT; id: st
     setBusy(mode); setVerdict(null);
     const res = await runCode(step.lang, code);
     setResult(res);
-    if (mode === "check") {
+    if (step.free) {
+      if (!res.error) onPass();
+    } else if (mode === "check") {
       const fail = grade(step.checks, code, res);
       setVerdict(fail ? { ok: false, msg: fail } : { ok: true, msg: "Correct. On to the next step." });
       if (!fail) onPass();
@@ -36,22 +38,28 @@ export function CodeStep({ step, id, passed, onPass }: { step: CodeStepT; id: st
       <div className="inst">
         <h2>{step.title}</h2>
         <Body body={step.body} />
-        <div className="task">
-          <h3>{passed ? "Done" : "Your task"}</h3>
-          <ul>{step.task.map((t, i) => <li key={i} className={passed ? "ok" : undefined}><Rich text={t} /></li>)}</ul>
-        </div>
-        <details className="hint"><summary>Stuck? Show a hint</summary><pre>{step.hint}</pre></details>
+        {step.free ? (
+          <div className="task"><h3>Try it</h3><ul>{step.task.map((t, i) => <li key={i} className="free"><Rich text={t} /></li>)}</ul></div>
+        ) : (
+          <>
+            <div className="task">
+              <h3>{passed ? "Done" : "Your task"}</h3>
+              <ul>{step.task.map((t, i) => <li key={i} className={passed ? "ok" : undefined}><Rich text={t} /></li>)}</ul>
+            </div>
+            <details className="hint"><summary>Stuck? Show a hint</summary><pre>{step.hint}</pre></details>
+          </>
+        )}
         <div aria-live="polite">{verdict && <p className={verdict.ok ? "verdict ok" : "verdict bad"}>{verdict.msg}</p>}</div>
       </div>
       <div className="workspace">
         <div className="ws-bar"><span className="file">{FILE_NAME[step.lang]}</span><span className="lang">{LANG_NAME[step.lang]}</span></div>
         <Editor key={editorKey} lang={step.lang} initial={code} onChange={change} label={`${LANG_NAME[step.lang]} code editor`} />
         <div className="ws-actions">
-          <button type="button" className="btn alt sm" disabled={!!busy} onClick={() => go("run")}>{busy === "run" ? "Running" : "Run"}</button>
-          <button type="button" className="btn sm" disabled={!!busy} onClick={() => go("check")}>{busy === "check" ? "Checking" : "Check"}</button>
+          <button type="button" className={step.free ? "btn sm" : "btn alt sm"} disabled={!!busy} onClick={() => go("run")}>{busy === "run" ? "Running" : "Run"}</button>
+          {!step.free && <button type="button" className="btn sm" disabled={!!busy} onClick={() => go("check")}>{busy === "check" ? "Checking" : "Check"}</button>}
           <span className="spacer" />
-          <button type="button" className="linkbtn" disabled={!!busy} onClick={() => load(step.starter)}>Start over</button>
-          <button type="button" className="linkbtn" disabled={!!busy} onClick={() => load(step.solution)}>Show solution</button>
+          <button type="button" className="linkbtn" disabled={!!busy} onClick={() => load(step.starter)}>{step.free ? "Reset the code" : "Start over"}</button>
+          {!step.free && <button type="button" className="linkbtn" disabled={!!busy} onClick={() => load(step.solution)}>Show solution</button>}
         </div>
         <div className="console" role="log" aria-label="Output">
           {busy && !result && <p className="dim">Starting {LANG_NAME[step.lang]}. The first run takes a few seconds.</p>}
