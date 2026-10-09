@@ -7,6 +7,7 @@ import { signOut, useSession } from "@/lib/session";
 
 const LINKS = [
   ["/what-is-a-quant", "What is a quant?"],
+  ["/daily", "Puzzle"],
   ["/pipeline", "Pipeline"],
   ["/learn", "Lessons"],
   ["/trade", "Trade"],

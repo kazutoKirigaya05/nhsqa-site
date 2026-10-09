@@ -44,6 +44,7 @@ function DashboardInner() {
             </p>
             <div className="btns">
               {next ? <Link className="btn" href={`/learn/${next.t.slug}`}>{next.s.state === "now" ? `Continue ${next.t.title}` : `Start ${next.t.title}`}</Link> : <Link className="btn" href="/pipeline">See your pipeline</Link>}
+              <Link className="btn alt" href="/daily">Today&apos;s puzzle</Link>
               <Link className="btn alt" href="/account">My account</Link>
             </div>
           </div>

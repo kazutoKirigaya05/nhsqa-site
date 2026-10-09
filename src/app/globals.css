@@ -87,12 +87,13 @@ a:hover { background: var(--hi); color: var(--pencil); text-decoration-color: va
 .logo:hover { background: none; color: var(--pencil); }
 .logo svg { width: 52px; height: 30px; flex: none; }
 .nav { display: flex; align-items: center; gap: 22px; }
-.nav a { color: var(--pencil); text-decoration: none; font-weight: 500; font-size: .98rem; }
+.nav a { color: var(--pencil); text-decoration: none; font-weight: 500; font-size: .98rem; white-space: nowrap; }
 .nav a:not(.btn):hover { background: var(--hi); }
+.nav a.btn, .nav a.btn:hover { color: #fff; }
 .nav a[aria-current="page"]:not(.btn) { box-shadow: 0 2px 0 var(--ink); }
-.nav-main { display: flex; gap: 22px; align-items: center; }
+.nav-main { display: flex; gap: 18px; align-items: center; }
 .menu-toggle { display: none; }
-@media (max-width: 1180px) {
+@media (max-width: 1260px) {
   .site-header .wrap { flex-wrap: wrap; }
   .menu-toggle { display: inline-flex; align-items: center; gap: 8px; font: 600 1rem var(--text); padding: 8px 14px; border: 2px solid var(--pencil); border-radius: 8px; background: var(--paper); color: var(--pencil); cursor: pointer; }
   .nav { display: none; flex-basis: 100%; flex-direction: column; align-items: flex-start; gap: 4px; padding-block: 8px 12px; }
@@ -401,3 +402,22 @@ table.stocks td:nth-child(2) { color: var(--muted); }
 .pw { display: flex; gap: 8px; align-items: center; }
 .pw input { flex: 1; min-width: 0; }
 .hp { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+
+/* Daily puzzle */
+.eyebrow { font: 600 .95rem var(--mono); color: var(--ink); }
+.daily-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.daily-tags .tag { margin-left: 0; font-size: .85rem; padding: 2px 12px; }
+.daily-tags .tag + .tag { background: var(--paper); }
+.daily-grid { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: clamp(20px, 3vw, 40px); align-items: start; }
+@media (max-width: 860px) { .daily-grid { grid-template-columns: minmax(0, 1fr); } }
+.daily-card { gap: 20px; box-shadow: 6px 6px 0 var(--hi); }
+.daily-card p { color: var(--pencil); }
+.daily-prompt { font: 500 clamp(1.15rem, 2vw, 1.35rem)/1.5 var(--text); }
+.tries { display: flex; gap: 6px; }
+.try { width: 22px; height: 22px; border: 1.5px solid var(--pencil); border-radius: 4px; background: var(--paper); }
+.try.used { background: var(--bad, #c9372c); border-color: var(--bad, #c9372c); }
+.share-preview { font: 500 .9rem/1.5 var(--mono); background: var(--tint); border: 1px dashed var(--bar); border-radius: 6px; padding: 10px 12px; white-space: pre-wrap; overflow-wrap: anywhere; }
+.daily-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.daily-stats div { display: flex; flex-direction: column; gap: 2px; font-size: .85rem; color: var(--muted); }
+.daily-stats .big { font-size: 2rem; font-weight: 600; color: var(--pencil); line-height: 1.1; }
+details.card summary { cursor: pointer; }

@@ -18,6 +18,7 @@ export function SiteFooter() {
               <li><Link href="/pipeline">The Quant Pipeline</Link></li>
               <li><Link href="/learn">Lessons</Link></li>
               <li><Link href="/trade">Trading floor</Link></li>
+              <li><Link href="/daily">Daily puzzle</Link></li>
               <li><Link href="/events">Events and news</Link></li>
               <li><Link href="/join">Join free</Link></li>
             </ul>
