@@ -81,6 +81,7 @@ function AccountInner() {
           <h1 className="long">My account</h1>
           <p className="lede">Signed in as {email}.</p>
           <div className="btns"><button type="button" className="btn alt" onClick={() => { void signOut(); }}>Log out</button></div>
+          <PasswordForm />
           <p className="muted">To delete your account and everything saved with it, send us a message from the <Link href="/contact">contact page</Link>.</p>
         </div>
         {profile ? (
@@ -103,5 +104,34 @@ function AccountInner() {
         ) : <p className="notice">Your profile could not be loaded. Refresh the page to try again.</p>}
       </div>
     </section>
+  );
+}
+
+function PasswordForm() {
+  const [status, setStatus] = useState<{ kind: "idle" | "busy" | "saved" | "error"; msg?: string }>({ kind: "idle" });
+  async function save(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const form = e.currentTarget;
+    const f = new FormData(form);
+    const password = String(f.get("pw1"));
+    if (password !== String(f.get("pw2"))) { setStatus({ kind: "error", msg: "The two passwords do not match." }); return; }
+    setStatus({ kind: "busy" });
+    const { error } = await supabase().auth.updateUser({ password });
+    if (error) setStatus({ kind: "error", msg: friendly(error) });
+    else { form.reset(); setStatus({ kind: "saved" }); }
+  }
+  return (
+    <form className="form" onSubmit={save}>
+      <h2 className="h3 full">Set a new password</h2>
+      <div className="field full"><label htmlFor="pw1">New password</label><input id="pw1" name="pw1" type="password" required minLength={8} maxLength={72} autoComplete="new-password" /><span className="hint">At least 8 characters.</span></div>
+      <div className="field full"><label htmlFor="pw2">Type it again</label><input id="pw2" name="pw2" type="password" required minLength={8} maxLength={72} autoComplete="new-password" /></div>
+      <div className="full stack-sm" style={{ alignItems: "flex-start" }}>
+        <button type="submit" className="btn alt" disabled={status.kind === "busy"}>{status.kind === "busy" ? "Saving" : "Save password"}</button>
+        <div role="status">
+          {status.kind === "saved" && <p className="verdict ok">Password saved. Use it next time you log in.</p>}
+          {status.kind === "error" && <p className="verdict bad">{status.msg}</p>}
+        </div>
+      </div>
+    </form>
   );
 }

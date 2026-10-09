@@ -9,7 +9,7 @@ export default function Page() {
       <div className="wrap split">
         <div className="stack">
           <h1 className="long">Log in</h1>
-          <p className="lede">Enter your email and we will send you a link that signs you in.</p>
+          <p className="lede">Log in with the email and password you joined with.</p>
           <p className="muted">New here? <Link href="/join">Join free</Link>.</p>
         </div>
         <LoginForm />

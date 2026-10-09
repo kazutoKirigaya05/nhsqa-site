@@ -71,6 +71,7 @@ export function friendly(error: { message?: string; status?: number } | null | u
   const m = error?.message ?? "";
   if (/failed to fetch|network|load failed/i.test(m)) return "Could not reach the server. Check your connection and try again.";
   if (/rate limit|too many|429/i.test(m) || error?.status === 429) return "Too many emails have been sent in the last hour. Wait a while and try again.";
+  if (/invalid login credentials/i.test(m)) return "Wrong email or password. If you joined before you had a password, use the sign-in link option below once, then set a password on your account page.";
   if (/signups? not allowed|user not found/i.test(m)) return "There is no account with that email yet. Join first.";
   if (/invalid.*email|unable to validate email/i.test(m)) return "That email address does not look right.";
   return m || "Something went wrong. Try again.";
