@@ -5,16 +5,19 @@ import { useState } from "react";
 import { Logo } from "./Logo";
 import { signOut, useSession } from "@/lib/session";
 
+// Student links sit in the main bar. The two links for professionals live in the strip above it.
 const LINKS = [
   ["/what-is-a-quant", "What is a quant?"],
-  ["/daily", "Puzzle"],
-  ["/pipeline", "Pipeline"],
   ["/learn", "Lessons"],
   ["/trade", "Trade"],
+  ["/daily", "Puzzle"],
+  ["/pipeline", "Pipeline"],
   ["/kits", "Quant kits"],
   ["/events", "Events"],
-  ["/sponsors", "Sponsors"],
-  ["/mentors", "Mentors"],
+] as const;
+const PRO = [
+  ["/sponsors", "Sponsor us"],
+  ["/mentors", "Become a mentor"],
 ] as const;
 
 export function SiteHeader() {
@@ -25,6 +28,14 @@ export function SiteHeader() {
   const close = () => setOpen(false);
   return (
     <header className="site-header">
+      <div className="topbar">
+        <div className="wrap">
+          <span className="topbar-note">Free for every high school student</span>
+          <span className="topbar-links">
+            {PRO.map(([href, label]) => <Link key={href} href={href} aria-current={path === href ? "page" : undefined}>{label}</Link>)}
+          </span>
+        </div>
+      </div>
       <div className="wrap">
         <Logo />
         <button type="button" className="menu-toggle" aria-expanded={open} aria-controls="site-nav" onClick={() => setOpen(!open)}>
